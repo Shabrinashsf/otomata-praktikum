@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexiScan — Lexical Analyzer</title>
+  <meta name="description" content="Aplikasi analisis leksikal (lexer) untuk mengelompokkan token dari kode program: reserved words, simbol, variabel, dan ekspresi matematika." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background animated orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect x="2" y="2" width="24" height="24" rx="6" fill="url(#grad1)"/>
+            <path d="M8 10l4 4-4 4M14 18h6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="grad1" x1="2" y1="2" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-name">LexiScan</h1>
+          <span class="brand-sub">Lexical Analyzer</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="badge badge-course">Teori Otomata</span>
+        <span class="badge badge-info">Teknik Informatika</span>
+      </div>
+    </header>
+
+    <!-- Main layout -->
+    <main class="app-main">
+      <!-- Left Panel: Input -->
+      <section class="panel panel-input" aria-label="Input Panel">
+        <div class="panel-header">
+          <div class="panel-title-row">
+            <span class="panel-icon">📝</span>
+            <h2 class="panel-title">Kode Sumber</h2>
+          </div>
+          <div class="panel-controls">
+            <div class="lang-selector-wrapper">
+              <label for="lang-select" class="sr-only">Pilih Bahasa</label>
+              <select id="lang-select" class="lang-select" title="Pilih bahasa pemrograman">
+                <option value="c">C / C++</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="custom">Kustom</option>
+              </select>
+            </div>
+            <button id="btn-clear" class="btn btn-ghost" title="Hapus input">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Hapus
+            </button>
+          </div>
+        </div>
+
+        <div class="code-editor-container">
+          <div class="line-numbers" id="line-numbers" aria-hidden="true">1</div>
+          <textarea
+            id="code-input"
+            class="code-input"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            placeholder="// Paste atau ketik kode program di sini...
+// Contoh:
+int main() {
+    int x = 10;
+    float y = 3.14;
+    if (x > 5) {
+        printf(&quot;Hello&quot;);
+    }
+    return x + y * 2;
+}"
+          ></textarea>
+        </div>
+
+        <!-- Quick examples -->
+        <div class="examples-row">
+          <span class="examples-label">Contoh cepat:</span>
+          <button class="example-chip" data-example="c_basic" id="ex-c-basic">C Basic</button>
+          <button class="example-chip" data-example="c_math" id="ex-c-math">C Math</button>
+          <button class="example-chip" data-example="python_basic" id="ex-python">Python</button>
+          <button class="example-chip" data-example="java_basic" id="ex-java">Java</button>
+        </div>
+
+        <!-- Analyze button -->
+        <button id="btn-analyze" class="btn btn-primary btn-analyze">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="9" r="7.5" stroke="white" stroke-width="1.5"/>
+            <path d="M6 9l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Analisis Token
+          <kbd class="keyboard-shortcut">Ctrl+Enter</kbd>
+        </button>
+      </section>
+
+      <!-- Right Panel: Output -->
+      <section class="panel panel-output" aria-label="Output Panel">
+        <div class="panel-header">
+          <div class="panel-title-row">
+            <span class="panel-icon">🔍</span>
+            <h2 class="panel-title">Hasil Analisis</h2>
+          </div>
+          <div class="panel-controls">
+            <button id="btn-export" class="btn btn-ghost" title="Export hasil" disabled>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 10v1a1 1 0 001 1h8a1 1 0 001-1v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Export
+            </button>
+            <div class="view-toggle" role="group" aria-label="Tampilan output">
+              <button class="view-btn active" id="view-grouped" data-view="grouped" title="Tampilan grouped">Grouped</button>
+              <button class="view-btn" id="view-table" data-view="table" title="Tampilan tabel">Tabel</button>
+              <button class="view-btn" id="view-inline" data-view="inline" title="Tampilan inline">Inline</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="stats-row" id="stats-row" aria-live="polite">
+          <div class="stat-card stat-total">
+            <span class="stat-num" id="stat-total">—</span>
+            <span class="stat-label">Total Token</span>
+          </div>
+          <div class="stat-card stat-reserved">
+            <span class="stat-num" id="stat-reserved">—</span>
+            <span class="stat-label">Reserved Words</span>
+          </div>
+          <div class="stat-card stat-symbol">
+            <span class="stat-num" id="stat-symbol">—</span>
+            <span class="stat-label">Simbol</span>
+          </div>
+          <div class="stat-card stat-variable">
+            <span class="stat-num" id="stat-variable">—</span>
+            <span class="stat-label">Variabel</span>
+          </div>
+          <div class="stat-card stat-math">
+            <span class="stat-num" id="stat-math">—</span>
+            <span class="stat-label">Matematika</span>
+          </div>
+        </div>
+
+        <!-- Output area -->
+        <div class="output-area" id="output-area">
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon" aria-hidden="true">⚡</div>
+            <p class="empty-title">Siap menganalisis!</p>
+            <p class="empty-sub">Masukkan kode program lalu tekan <strong>Analisis Token</strong></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Token legend -->
+    <footer class="app-footer">
+      <div class="legend">
+        <span class="legend-label">Legenda:</span>
+        <span class="legend-item"><span class="token-badge token-reserved">Reserved Word</span></span>
+        <span class="legend-item"><span class="token-badge token-symbol">Simbol / Tanda Baca</span></span>
+        <span class="legend-item"><span class="token-badge token-variable">Variabel / Identifier</span></span>
+        <span class="legend-item"><span class="token-badge token-number">Literal Angka</span></span>
+        <span class="legend-item"><span class="token-badge token-string">Literal String</span></span>
+        <span class="legend-item"><span class="token-badge token-math">Ekspresi Matematika</span></span>
+        <span class="legend-item"><span class="token-badge token-comment">Komentar</span></span>
+      </div>
+      <p class="footer-credit">Tugas Otomata — Teknik Informatika &nbsp;|&nbsp; LexiScan v1.0</p>
+    </footer>
+  </div>
+
+  <script src="lexer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

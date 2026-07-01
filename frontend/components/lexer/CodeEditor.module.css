@@ -1,0 +1,134 @@
+.editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.langSelect {
+  appearance: none;
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 28px 6px 10px;
+  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.18s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b90a8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.langSelect:hover,
+.langSelect:focus {
+  border-color: var(--border-active);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.editorArea {
+  display: flex;
+  flex: 1;
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border);
+  min-height: 300px;
+  max-height: 460px;
+  overflow: hidden;
+}
+
+.lineNumbers {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  padding: 14px 10px 14px 14px;
+  text-align: right;
+  user-select: none;
+  min-width: 42px;
+  border-right: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  white-space: pre;
+  flex-shrink: 0;
+}
+
+.textarea {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.72;
+  color: var(--text-code);
+  background: transparent;
+  border: none;
+  padding: 14px 16px;
+  resize: none;
+  outline: none;
+  tab-size: 4;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.examplesRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.examplesLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.exampleChip {
+  font-size: 0.71rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.18s;
+  text-transform: capitalize;
+}
+
+.exampleChip:hover {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent-light);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.analyzeWrap {
+  padding: 14px 16px 16px;
+}
+
+.kbd {
+  font-size: 0.64rem;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 4px;
+}

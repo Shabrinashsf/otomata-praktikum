@@ -1,0 +1,3 @@
+:HL["/_next/static/chunks/3i5s3d9raewoa.css","style"]
+:HL["/_next/static/chunks/403__j72dobsm.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"praktikum-2","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"u-nCS2Z4BwSte7zaeot1Z"}

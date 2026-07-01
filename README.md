@@ -4,6 +4,9 @@ OtomataLab adalah aplikasi *monorepo* (gabungan *Frontend* Next.js dan *Backend*
 
 Proyek ini terkompilasi menjadi satu file **single binary executable**, berkat fitur `//go:embed` yang menyematkan hasil *build static* dari Next.js langsung ke dalam *backend* Go HTTP server.
 
+<img width="1920" height="1583" alt="image" src="https://github.com/user-attachments/assets/4e888211-5e12-4ccc-9206-f1329c89ed05" />
+
+
 ## 🚀 Fitur Utama
 
 Aplikasi ini mencakup 3 modul praktikum utama:

@@ -43,30 +43,27 @@ Mode ini direkomendasikan jika Anda ingin melihat dan mengubah kode. Server Go d
 ```bash
 # Menjalankan frontend dan backend secara paralel
 make dev
-```
-Buka browser di: **http://localhost:3000** (Next.js Dev Server)
+## Cara Menjalankan di Lokal (Vercel Native)
 
-*(Jika Anda tidak punya `make`, Anda bisa membuka 2 terminal terpisah: terminal 1 jalankan `cd frontend && npm run dev`, terminal 2 jalankan `cd backend && go run main.go`)*.
+Karena proyek ini sekarang menggunakan arsitektur **Vercel Serverless Functions**, pastikan Anda memiliki **Vercel CLI** terinstal (`npm i -g vercel`).
 
-### Opsi 2: Build & Jalankan Production Binary (Single Exe)
-Langkah ini akan mem- *build* frontend Anda menjadi statik, meletakkannya di backend, lalu mengkompilasi Go menjadi sebuah file `.exe`.
-
-1. **Jalankan perintah Build:**
+1. **Install Dependencies:**
    ```bash
-   make build
+   npm install
    ```
-   *Note: Ini akan memakan waktu sejenak karena sistem perlu menjalankan `npm run build` dan `go build`.*
 
-2. **Jalankan Aplikasi:**
-   Setelah selesai, file bernama `otomatalab.exe` (atau *executable* sejenis sesuai OS Anda) akan muncul di folder utama proyek. Cukup jalankan:
+2. **Jalankan Development Server:**
    ```bash
-   ./otomatalab.exe
+   vercel dev
+   # Atau bisa dengan make dev
    ```
 
 3. **Buka Aplikasi:**
-   Buka browser Anda dan kunjungi **http://localhost:8888**.
+   Buka browser Anda dan kunjungi **http://localhost:3000** (atau sesuai port yang diberikan oleh Vercel). Vercel akan secara otomatis menghubungkan frontend Next.js dengan fungsi Go di dalam folder `/api/`.
 
----
+## Deployment ke Vercel
+
+Cukup hubungkan repositori GitHub Anda ke Vercel Dashboard, dan Vercel akan otomatis mengenali proyek ini sebagai aplikasi Next.js dengan API Go Serverless. Tidak perlu konfigurasi tambahan!
 
 ## 📁 Struktur Direktori
 

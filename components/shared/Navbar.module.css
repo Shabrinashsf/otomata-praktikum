@@ -93,8 +93,32 @@
   background: rgba(99, 102, 241, 0.14);
 }
 
+@media (max-width: 768px) {
+  .inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+    justify-content: center;
+  }
+  .nav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .navLink {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+  .brandSub {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
-  .inner { padding: 0 16px; }
-  .brandSub { display: none; }
-  .navLink { padding: 5px 10px; font-size: 0.78rem; }
+  .navLink {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
 }

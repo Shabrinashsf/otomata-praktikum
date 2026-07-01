@@ -301,4 +301,7 @@
 
 @media (max-width: 600px) {
   .container { padding: 20px 14px 40px; }
+  .inputRow { flex-direction: column; align-items: stretch; }
+  .stringInput { font-size: 1rem; }
+  .checkBtn { width: 100%; justify-content: center; }
 }

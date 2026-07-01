@@ -132,3 +132,15 @@
   font-weight: 500;
   margin-left: 4px;
 }
+
+@media (max-width: 600px) {
+  .headerControls {
+    flex-wrap: wrap;
+  }
+  .langSelect {
+    width: 100%;
+  }
+  .examplesRow {
+    gap: 6px;
+  }
+}
